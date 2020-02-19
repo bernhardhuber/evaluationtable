@@ -20,7 +20,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Function;
 import org.huberb.evaluationtable.EvaluationTable.Evaluations;
-import org.huberb.evaluationtable.EvaluationTable.NBigDecimalValue;
+import org.huberb.evaluationtable.vector.BigDecimalVector;
 import org.junit.After;
 import static org.junit.Assert.assertEquals;
 import org.junit.Before;
@@ -48,8 +48,11 @@ public class EvaluationTableTest {
     }
 
     @Test
-    public void testSomeMethod() {
-        Evaluations<NBigDecimalValue> ev = new Evaluations<>();
+    public void test_InputAndSumEnum() {
+        Function<BigDecimalVector, BigDecimalVector> sumFunc = (BigDecimalVector bdv) -> {
+            return new BigDecimalVector(bdv.sum());
+        };
+        Evaluations<BigDecimalVector> ev = new Evaluations<>();
         List<BigDecimal> l = Arrays.asList(
                 BigDecimal.valueOf(1L),
                 BigDecimal.valueOf(2L),
@@ -57,15 +60,12 @@ public class EvaluationTableTest {
                 BigDecimal.valueOf(4L),
                 BigDecimal.valueOf(5L)
         );
-        ev.putIfAbsentValue(InputAndSumEnum.inputListOf, new NBigDecimalValue(l));
+        ev.putIfAbsentValue(InputAndSumEnum.inputListOf, new BigDecimalVector(l));
         ev.evaluateTo(InputAndSumEnum.inputListOf,
                 InputAndSumEnum.resultSumOfInputListOf,
-                (NBigDecimalValue t) -> {
-                    NBigDecimalValue result = t.sum();
-                    return result;
-                }
+                sumFunc
         );
-        assertEquals(BigDecimal.valueOf(15L), ev.get(InputAndSumEnum.resultSumOfInputListOf).bigDecimal());
+        assertEquals(BigDecimal.valueOf(15L), ev.get(InputAndSumEnum.resultSumOfInputListOf).scalar0());
     }
 
     enum Input2AndSum {
@@ -76,9 +76,12 @@ public class EvaluationTableTest {
     };
 
     @Test
-    public void testSomeMethod2() {
+    public void test_Input2AndSum() {
+        Function<BigDecimalVector, BigDecimalVector> sumFunc = (BigDecimalVector bdv) -> {
+            return new BigDecimalVector(bdv.sum());
+        };
 
-        Evaluations<NBigDecimalValue> ev = new Evaluations<>();
+        Evaluations<BigDecimalVector> ev = new Evaluations<>();
         List<BigDecimal> l1 = Arrays.asList(
                 BigDecimal.valueOf(1L),
                 BigDecimal.valueOf(2L),
@@ -93,39 +96,26 @@ public class EvaluationTableTest {
                 BigDecimal.valueOf(-4L),
                 BigDecimal.valueOf(-5L)
         );
-        Function<NBigDecimalValue, NBigDecimalValue> f = (t) -> t.sum();
 
-        ev.putIfAbsentValue(Input2AndSum.input1, new NBigDecimalValue(l1));
-        ev.evaluateTo(Input2AndSum.input1, Input2AndSum.input1Sum, f);
-        ev.putIfAbsentValue(Input2AndSum.input2, new NBigDecimalValue(l2));
-        ev.evaluateTo(Input2AndSum.input2, Input2AndSum.input2Sum, f);
+        ev.putIfAbsentValue(Input2AndSum.input1, new BigDecimalVector(l1));
+        ev.evaluateTo(Input2AndSum.input1, Input2AndSum.input1Sum, sumFunc);
+        ev.putIfAbsentValue(Input2AndSum.input2, new BigDecimalVector(l2));
+        ev.evaluateTo(Input2AndSum.input2, Input2AndSum.input2Sum, sumFunc);
 
-        assertEquals(BigDecimal.valueOf(15L), ev.get(Input2AndSum.input1Sum).bigDecimal());
-        assertEquals(BigDecimal.valueOf(-15L), ev.get(Input2AndSum.input2Sum).bigDecimal());
+        assertEquals(BigDecimal.valueOf(15L), ev.get(Input2AndSum.input1Sum).scalar0());
+        assertEquals(BigDecimal.valueOf(-15L), ev.get(Input2AndSum.input2Sum).scalar0());
         // variant 1
-        assertEquals(BigDecimal.ZERO, ev.get(Input2AndSum.input1Sum).bigDecimal().add(ev.get(Input2AndSum.input2Sum).bigDecimal()));
+        assertEquals(BigDecimal.ZERO, ev.get(Input2AndSum.input1Sum).scalar0().add(ev.get(Input2AndSum.input2Sum).scalar0()));
 
         // variant 2
         ev.putValue(Input2AndSum.input1SumInput2Sum,
-                new NBigDecimalValue(
-                        Arrays.asList(
-                                ev.get(Input2AndSum.input1Sum).bigDecimal(),
-                                ev.get(Input2AndSum.input2Sum).bigDecimal())
+                new BigDecimalVector(                        Arrays.asList(
+                                ev.get(Input2AndSum.input1Sum).scalar0(),
+                                ev.get(Input2AndSum.input2Sum).scalar0())
                 )
         );
-        ev.evaluateTo(Input2AndSum.input1SumInput2Sum, Input2AndSum.result, f);
-        assertEquals(BigDecimal.ZERO, ev.get(Input2AndSum.result).bigDecimal());
+        ev.evaluateTo(Input2AndSum.input1SumInput2Sum, Input2AndSum.result, sumFunc);
+        assertEquals(BigDecimal.ZERO, ev.get(Input2AndSum.result).scalar0());
 
-        // variant 3
-        ev.putValue(Input2AndSum.input1SumInput2Sum, null);
-        ev.putValue(Input2AndSum.result, null);
-        ev.putValue(Input2AndSum.input1SumInput2Sum,
-                NBigDecimalValue.fromNBigDecimalValue(Arrays.asList(
-                        ev.get(Input2AndSum.input1Sum),
-                        ev.get(Input2AndSum.input2Sum)
-                ))
-        );
-        ev.evaluateTo(Input2AndSum.input1SumInput2Sum, Input2AndSum.result, f);
-        assertEquals(BigDecimal.ZERO, ev.get(Input2AndSum.result).bigDecimal());
     }
 }
