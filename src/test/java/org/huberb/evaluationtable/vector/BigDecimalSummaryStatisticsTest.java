@@ -16,6 +16,7 @@
 package org.huberb.evaluationtable.vector;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import org.junit.After;
@@ -89,5 +90,23 @@ public class BigDecimalSummaryStatisticsTest {
         bigDecimalList.stream().forEach((bd) -> instance.accept(bd));
         String result = instance.toString();
         assertEquals("BigDecimalSummaryStatistics{count=4, sum=12.000000, min=0.000000, average=3.000000, max=10.000000}", result);
+    }
+
+    @Test
+    public void testForEachAccept_neg_and_plus() {
+        List<BigDecimal> bigDecimalList = new ArrayList<>();
+        for (int i = 0; i <= 99; i++) {
+            bigDecimalList.add(BigDecimal.valueOf(i));
+            bigDecimalList.add(BigDecimal.valueOf(-i));
+        }
+
+        BigDecimalSummaryStatistics instance = new BigDecimalSummaryStatistics();
+
+        bigDecimalList.stream().forEach((bd) -> instance.accept(bd));
+        assertEquals(BigDecimal.ZERO, instance.getAverage());
+        assertEquals(200, instance.getCount());
+        assertEquals(BigDecimal.valueOf(99), instance.getMax());
+        assertEquals(BigDecimal.valueOf(-99), instance.getMin());
+        assertEquals(BigDecimal.valueOf(0), instance.getSum());
     }
 }

@@ -23,7 +23,7 @@ import java.util.List;
  *
  * @author berni3
  */
-class BigIntegerVector extends NumberVector<BigInteger> {
+public class BigIntegerVector extends NumberVector<BigInteger> {
 
     public BigIntegerVector(BigInteger n) {
         super(n);

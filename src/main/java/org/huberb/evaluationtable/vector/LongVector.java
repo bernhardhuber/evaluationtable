@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author berni3
  */
-class LongVector extends NumberVector<Long> {
+public class LongVector extends NumberVector<Long> {
 
     public LongVector(Long n) {
         super(n);

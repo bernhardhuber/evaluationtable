@@ -16,6 +16,7 @@
 package org.huberb.evaluationtable.vector;
 
 import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.DoubleSummaryStatistics;
 import java.util.IntSummaryStatistics;
 import java.util.LongSummaryStatistics;
@@ -50,7 +51,15 @@ public class VectorsSummaryStatistics {
         return dss;
     }
 
-    public BigDecimalSummaryStatistics createDoubleSummaryStatistics(BigDecimalVector bdv) {
+    public BigIntegerSummaryStatistics createBigIntegerSummaryStatistics(BigIntegerVector bdv) {
+        BigIntegerSummaryStatistics biss = new BigIntegerSummaryStatistics();
+        for (BigInteger v : bdv.vector()) {
+            biss.accept(v);
+        }
+        return biss;
+    }
+
+    public BigDecimalSummaryStatistics createBigDecimalSummaryStatistics(BigDecimalVector bdv) {
         BigDecimalSummaryStatistics bdss = new BigDecimalSummaryStatistics();
         for (BigDecimal v : bdv.vector()) {
             bdss.accept(v);

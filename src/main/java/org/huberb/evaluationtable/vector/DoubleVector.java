@@ -22,7 +22,7 @@ import java.util.List;
  *
  * @author berni3
  */
-class DoubleVector extends NumberVector<Double> {
+public class DoubleVector extends NumberVector<Double> {
 
     public DoubleVector(Double n) {
         super(n);

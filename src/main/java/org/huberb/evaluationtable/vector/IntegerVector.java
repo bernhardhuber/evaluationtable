@@ -16,14 +16,13 @@
 package org.huberb.evaluationtable.vector;
 
 import java.util.ArrayList;
-import java.util.IntSummaryStatistics;
 import java.util.List;
 
 /**
  *
  * @author berni3
  */
-class IntegerVector extends NumberVector<Integer> {
+public class IntegerVector extends NumberVector<Integer> {
 
     public IntegerVector(Integer n) {
         super(n);
@@ -104,6 +103,5 @@ class IntegerVector extends NumberVector<Integer> {
         }
         return r;
     }
-
 
 }
