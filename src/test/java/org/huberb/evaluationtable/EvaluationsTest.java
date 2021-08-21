@@ -28,19 +28,28 @@ import org.junit.Test;
  *
  * @author berni3
  */
-public class EvaluationTableTest {
+public class EvaluationsTest {
 
     static enum InputAndSumEnum {
-        inputListOf, resultSumOfInputListOf;
+        inputListOf,
+        resultSumOfInputListOf,
+        resultMinOfInputListOf,
+        resultMaxOfInputListOf;
     }
 
     @Test
     public void test_InputAndSumEnum() {
-        Function<BigDecimalVector, BigDecimalVector> sumFunc = (BigDecimalVector bdv) -> {
+        final Function<BigDecimalVector, BigDecimalVector> sumFunc = (BigDecimalVector bdv) -> {
             return new BigDecimalVector(bdv.sum());
         };
-        Evaluations<BigDecimalVector> ev = new Evaluations<>();
-        List<BigDecimal> listOfBigDecimal = Arrays.asList(
+        final Function<BigDecimalVector, BigDecimalVector> minFunc = (BigDecimalVector bdv) -> {
+            return new BigDecimalVector(bdv.min());
+        };
+        final Function<BigDecimalVector, BigDecimalVector> maxFunc = (BigDecimalVector bdv) -> {
+            return new BigDecimalVector(bdv.max());
+        };
+        final Evaluations<BigDecimalVector> ev = new Evaluations<>();
+        final List<BigDecimal> listOfBigDecimal = Arrays.asList(
                 BigDecimal.valueOf(1L),
                 BigDecimal.valueOf(2L),
                 BigDecimal.valueOf(3L),
@@ -48,11 +57,24 @@ public class EvaluationTableTest {
                 BigDecimal.valueOf(5L)
         );
         ev.putIfAbsentValue(InputAndSumEnum.inputListOf, new BigDecimalVector(listOfBigDecimal));
+        //--- sum
         ev.evaluateTo(InputAndSumEnum.inputListOf,
                 InputAndSumEnum.resultSumOfInputListOf,
                 sumFunc
         );
         assertEquals(BigDecimal.valueOf(15L), ev.get(InputAndSumEnum.resultSumOfInputListOf).scalar0());
+        //--- min
+        ev.evaluateTo(InputAndSumEnum.inputListOf,
+                InputAndSumEnum.resultMinOfInputListOf,
+                minFunc
+        );
+        assertEquals(BigDecimal.valueOf(1L), ev.get(InputAndSumEnum.resultMinOfInputListOf).scalar0());
+        //--- max
+        ev.evaluateTo(InputAndSumEnum.inputListOf,
+                InputAndSumEnum.resultMaxOfInputListOf,
+                maxFunc
+        );
+        assertEquals(BigDecimal.valueOf(5L), ev.get(InputAndSumEnum.resultMaxOfInputListOf).scalar0());
     }
 
 }
