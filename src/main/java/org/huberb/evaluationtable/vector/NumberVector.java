@@ -15,8 +15,7 @@
  */
 package org.huberb.evaluationtable.vector;
 
-import java.util.Arrays;
-import java.util.Collections;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,12 +27,18 @@ public abstract class NumberVector<N extends Number> {
 
     private final List<N> vector;
 
+    protected NumberVector() {
+        this.vector = new ArrayList<>();
+    }
+
     protected NumberVector(N n) {
-        this(Arrays.asList(n));
+        this();
+        this.vector.add(n);
     }
 
     protected NumberVector(List<N> l) {
-        this.vector = Collections.unmodifiableList(l);
+        this();
+        this.vector.addAll(l);
     }
 
     public N scalar0() {
