@@ -39,9 +39,6 @@ public class LongVectorFibonacciTest {
     public void tearDown() {
     }
 
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
     @Test
     public void testFibonacci_1_10() {
         final List l = Arrays.asList(0L, 1L
