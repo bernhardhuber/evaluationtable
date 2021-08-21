@@ -16,9 +16,7 @@ package org.huberb.evaluationtable;
  * limitations under the License.
  */
 import org.huberb.evaluationtable.EvaluationTable.Evaluations;
-import org.junit.After;
 import static org.junit.Assert.assertEquals;
-import org.junit.Before;
 import org.junit.Test;
 
 /**
@@ -27,16 +25,7 @@ import org.junit.Test;
  */
 public class EvaluationsDoubleTest {
 
-    public EvaluationsDoubleTest() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
+    private static final double DELTA = 0.000001d;
 
     static class EvaluationsDouble extends Evaluations<Double> {
     }
@@ -53,9 +42,10 @@ public class EvaluationsDoubleTest {
         double a1Mul2 = instance.evaluate(EvaluationsEnum.a1, (d) -> 2 * d);
         double a1plu1_Mul2 = instance.evaluateTo(EvaluationsEnum.a1, EvaluationsEnum.a2, (d) -> (d + 1) * 2);
 
-        assertEquals(1.0d, instance.get(EvaluationsEnum.a1), 0.001d);
+        assertEquals(1.0d, instance.get(EvaluationsEnum.a1), DELTA);
         assertEquals(2.0d, a1Mul2, 0.001d);
-        assertEquals(4.0d, instance.get(EvaluationsEnum.a2), 0.001d);
+        assertEquals(4.0d, instance.get(EvaluationsEnum.a2), DELTA);
         assertEquals(4.0d, a1plu1_Mul2, 0.001d);
     }
+
 }

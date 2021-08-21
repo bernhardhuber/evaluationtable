@@ -78,6 +78,7 @@ public class BigDecimalVector extends NumberVector<BigDecimal> {
         return new BigDecimalVector(r);
     }
 
+    @Override
     public BigDecimal sum() {
         BigDecimal r = BigDecimal.ZERO;
         for (BigDecimal v : vector()) {

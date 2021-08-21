@@ -19,10 +19,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import org.junit.After;
-import org.junit.Before;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 /**
  *
@@ -30,16 +28,6 @@ import static org.junit.Assert.*;
  */
 public class BigDecimalSummaryStatisticsTest {
 
-    public BigDecimalSummaryStatisticsTest() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
 
     /**
      * Test of accept method, of class BigDecimalSummaryStatistics.
@@ -59,6 +47,34 @@ public class BigDecimalSummaryStatisticsTest {
         assertEquals(10L, instance.getMax().longValue());
         assertEquals(0L, instance.getMin().longValue());
         assertEquals(12L, instance.getSum().longValue());
+    }
+
+    /**
+     * Test of accept method, of class BigDecimalSummaryStatistics.
+     */
+    @Test
+    public void testAccept_andThen() {
+        BigDecimal value0 = BigDecimal.ZERO;
+        BigDecimal value1 = BigDecimal.ONE;
+        BigDecimal value10 = BigDecimal.TEN;
+        BigDecimalSummaryStatistics instance = new BigDecimalSummaryStatistics();
+        BigDecimalSummaryStatistics instanceOther = new BigDecimalSummaryStatistics();
+        instance.andThen(instanceOther).accept(value0);
+        instance.andThen(instanceOther).accept(value1);
+        instance.andThen(instanceOther).accept(value1);
+        instance.andThen(instanceOther).accept(value10);
+        //---
+        assertEquals(3L, instance.getAverage().longValue());
+        assertEquals(4L, instance.getCount());
+        assertEquals(10L, instance.getMax().longValue());
+        assertEquals(0L, instance.getMin().longValue());
+        assertEquals(12L, instance.getSum().longValue());
+        //---
+        assertEquals(3L, instanceOther.getAverage().longValue());
+        assertEquals(4L, instanceOther.getCount());
+        assertEquals(10L, instanceOther.getMax().longValue());
+        assertEquals(0L, instanceOther.getMin().longValue());
+        assertEquals(12L, instanceOther.getSum().longValue());
     }
 
     /**

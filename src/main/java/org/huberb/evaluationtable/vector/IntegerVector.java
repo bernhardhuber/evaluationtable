@@ -77,6 +77,7 @@ public class IntegerVector extends NumberVector<Integer> {
         return new IntegerVector(r);
     }
 
+    @Override
     public Integer sum() {
         int r = 0;
         for (Integer v : vector()) {

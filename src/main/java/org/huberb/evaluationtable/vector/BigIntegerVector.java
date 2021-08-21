@@ -78,6 +78,7 @@ public class BigIntegerVector extends NumberVector<BigInteger> {
         return new BigIntegerVector(r);
     }
 
+    @Override
     public BigInteger sum() {
         BigInteger r = BigInteger.ZERO;
         for (BigInteger v : vector()) {
