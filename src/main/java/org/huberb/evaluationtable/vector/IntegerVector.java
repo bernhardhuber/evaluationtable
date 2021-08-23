@@ -34,7 +34,7 @@ public class IntegerVector extends NumberVector<Integer> {
 
     @Override
     public NumberVector<Integer> add(Integer n0) {
-        List<Integer> r = new ArrayList<>();
+        final List<Integer> r = new ArrayList<>();
         for (Integer v : vector()) {
             r.add(v + n0);
         }
@@ -43,7 +43,7 @@ public class IntegerVector extends NumberVector<Integer> {
 
     @Override
     public NumberVector<Integer> sub(Integer n0) {
-        List<Integer> r = new ArrayList<>();
+        final List<Integer> r = new ArrayList<>();
         for (Integer v : vector()) {
             r.add(v - n0);
         }
@@ -52,7 +52,7 @@ public class IntegerVector extends NumberVector<Integer> {
 
     @Override
     public NumberVector<Integer> mul(Integer n0) {
-        List<Integer> r = new ArrayList<>();
+        final List<Integer> r = new ArrayList<>();
         for (Integer v : vector()) {
             r.add(v * n0);
         }
@@ -61,7 +61,7 @@ public class IntegerVector extends NumberVector<Integer> {
 
     @Override
     public NumberVector<Integer> div(Integer n0) {
-        List<Integer> r = new ArrayList<>();
+        final List<Integer> r = new ArrayList<>();
         for (Integer v : vector()) {
             r.add(v / n0);
         }
@@ -70,7 +70,7 @@ public class IntegerVector extends NumberVector<Integer> {
 
     @Override
     public NumberVector<Integer> neg() {
-        List<Integer> r = new ArrayList<>();
+        final List<Integer> r = new ArrayList<>();
         for (Integer v : vector()) {
             r.add(-v);
         }

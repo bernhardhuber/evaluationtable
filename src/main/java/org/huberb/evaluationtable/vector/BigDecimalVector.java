@@ -35,7 +35,7 @@ public class BigDecimalVector extends NumberVector<BigDecimal> {
 
     @Override
     public NumberVector<BigDecimal> add(BigDecimal n0) {
-        List<BigDecimal> r = new ArrayList<>();
+        final List<BigDecimal> r = new ArrayList<>();
         for (BigDecimal v : vector()) {
             r.add(v.add(n0));
         }
@@ -44,7 +44,7 @@ public class BigDecimalVector extends NumberVector<BigDecimal> {
 
     @Override
     public NumberVector<BigDecimal> sub(BigDecimal n0) {
-        List<BigDecimal> r = new ArrayList<>();
+        final List<BigDecimal> r = new ArrayList<>();
         for (BigDecimal v : vector()) {
             r.add(v.subtract(n0));
         }
@@ -53,7 +53,7 @@ public class BigDecimalVector extends NumberVector<BigDecimal> {
 
     @Override
     public NumberVector<BigDecimal> mul(BigDecimal n0) {
-        List<BigDecimal> r = new ArrayList<>();
+        final List<BigDecimal> r = new ArrayList<>();
         for (BigDecimal v : vector()) {
             r.add(v.multiply(n0));
         }
@@ -62,7 +62,7 @@ public class BigDecimalVector extends NumberVector<BigDecimal> {
 
     @Override
     public NumberVector<BigDecimal> div(BigDecimal n0) {
-        List<BigDecimal> r = new ArrayList<>();
+        final List<BigDecimal> r = new ArrayList<>();
         for (BigDecimal v : vector()) {
             r.add(v.divide(n0));
         }
@@ -71,7 +71,7 @@ public class BigDecimalVector extends NumberVector<BigDecimal> {
 
     @Override
     public NumberVector<BigDecimal> neg() {
-        List<BigDecimal> r = new ArrayList<>();
+        final List<BigDecimal> r = new ArrayList<>();
         for (BigDecimal v : vector()) {
             r.add(v.negate());
         }

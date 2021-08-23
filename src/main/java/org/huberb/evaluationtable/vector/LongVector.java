@@ -34,7 +34,7 @@ public class LongVector extends NumberVector<Long> {
 
     @Override
     public NumberVector<Long> add(Long n0) {
-        List<Long> r = new ArrayList<>();
+        final List<Long> r = new ArrayList<>();
         for (Long v : vector()) {
             r.add(v + n0);
         }
@@ -43,7 +43,7 @@ public class LongVector extends NumberVector<Long> {
 
     @Override
     public NumberVector<Long> sub(Long n0) {
-        List<Long> r = new ArrayList<>();
+        final List<Long> r = new ArrayList<>();
         for (Long v : vector()) {
             r.add(v - n0);
         }
@@ -52,7 +52,7 @@ public class LongVector extends NumberVector<Long> {
 
     @Override
     public NumberVector<Long> mul(Long n0) {
-        List<Long> r = new ArrayList<>();
+        final List<Long> r = new ArrayList<>();
         for (Long v : vector()) {
             r.add(v * n0);
         }
@@ -61,7 +61,7 @@ public class LongVector extends NumberVector<Long> {
 
     @Override
     public NumberVector<Long> div(Long n0) {
-        List<Long> r = new ArrayList<>();
+        final List<Long> r = new ArrayList<>();
         for (Long v : vector()) {
             r.add(v / n0);
         }
@@ -70,7 +70,7 @@ public class LongVector extends NumberVector<Long> {
 
     @Override
     public NumberVector<Long> neg() {
-        List<Long> r = new ArrayList<>();
+        final List<Long> r = new ArrayList<>();
         for (Long v : vector()) {
             r.add(-v);
         }

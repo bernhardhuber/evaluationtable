@@ -35,7 +35,7 @@ public class BigIntegerVector extends NumberVector<BigInteger> {
 
     @Override
     public NumberVector<BigInteger> add(BigInteger n0) {
-        List<BigInteger> r = new ArrayList<>();
+        final List<BigInteger> r = new ArrayList<>();
         for (BigInteger v : vector()) {
             r.add(v.add(n0));
         }
@@ -44,7 +44,7 @@ public class BigIntegerVector extends NumberVector<BigInteger> {
 
     @Override
     public NumberVector<BigInteger> sub(BigInteger n0) {
-        List<BigInteger> r = new ArrayList<>();
+        final List<BigInteger> r = new ArrayList<>();
         for (BigInteger v : vector()) {
             r.add(v.subtract(n0));
         }
@@ -53,7 +53,7 @@ public class BigIntegerVector extends NumberVector<BigInteger> {
 
     @Override
     public NumberVector<BigInteger> mul(BigInteger n0) {
-        List<BigInteger> r = new ArrayList<>();
+        final List<BigInteger> r = new ArrayList<>();
         for (BigInteger v : vector()) {
             r.add(v.multiply(n0));
         }
@@ -62,7 +62,7 @@ public class BigIntegerVector extends NumberVector<BigInteger> {
 
     @Override
     public NumberVector<BigInteger> div(BigInteger n0) {
-        List<BigInteger> r = new ArrayList<>();
+        final List<BigInteger> r = new ArrayList<>();
         for (BigInteger v : vector()) {
             r.add(v.divide(n0));
         }
@@ -71,7 +71,7 @@ public class BigIntegerVector extends NumberVector<BigInteger> {
 
     @Override
     public NumberVector<BigInteger> neg() {
-        List<BigInteger> r = new ArrayList<>();
+        final List<BigInteger> r = new ArrayList<>();
         for (BigInteger v : vector()) {
             r.add(v.negate());
         }
