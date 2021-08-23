@@ -21,8 +21,9 @@ import java.util.List;
 import java.util.function.Function;
 import org.huberb.evaluationtable.EvaluationTable.Evaluations;
 import org.huberb.evaluationtable.vector.BigDecimalVector;
-import static org.junit.Assert.assertEquals;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
+
 
 /**
  *

@@ -17,27 +17,14 @@ package org.huberb.evaluationtable.vector;
 
 import java.util.Arrays;
 import java.util.List;
-import org.junit.After;
-import static org.junit.Assert.assertEquals;
-import org.junit.Before;
-import org.junit.Test;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import org.junit.jupiter.api.Test;
 
 /**
  *
  * @author berni3
  */
 public class LongVectorFibonacciTest {
-
-    public LongVectorFibonacciTest() {
-    }
-
-    @Before
-    public void setUp() {
-    }
-
-    @After
-    public void tearDown() {
-    }
 
     @Test
     public void testFibonacci_1_10() {
