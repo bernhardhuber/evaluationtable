@@ -107,7 +107,7 @@ public class EvaluationTable {
 
         @Override
         public String toString() {
-            StringBuilder sb = new StringBuilder();
+            final StringBuilder sb = new StringBuilder();
             sb.append(this.getClass().getName())
                     .append('@')
                     .append(Integer.toHexString(System.identityHashCode(this)))

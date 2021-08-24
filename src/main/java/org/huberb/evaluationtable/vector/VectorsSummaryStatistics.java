@@ -52,7 +52,7 @@ public class VectorsSummaryStatistics {
     }
 
     public BigIntegerSummaryStatistics createBigIntegerSummaryStatistics(BigIntegerVector bdv) {
-        BigIntegerSummaryStatistics biss = new BigIntegerSummaryStatistics();
+        final BigIntegerSummaryStatistics biss = new BigIntegerSummaryStatistics();
         for (BigInteger v : bdv.vector()) {
             biss.accept(v);
         }
@@ -60,7 +60,7 @@ public class VectorsSummaryStatistics {
     }
 
     public BigDecimalSummaryStatistics createBigDecimalSummaryStatistics(BigDecimalVector bdv) {
-        BigDecimalSummaryStatistics bdss = new BigDecimalSummaryStatistics();
+        final BigDecimalSummaryStatistics bdss = new BigDecimalSummaryStatistics();
         for (BigDecimal v : bdv.vector()) {
             bdss.accept(v);
         }

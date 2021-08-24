@@ -28,16 +28,15 @@ import org.junit.jupiter.api.Test;
  */
 public class BigDecimalSummaryStatisticsTest {
 
-
     /**
      * Test of accept method, of class BigDecimalSummaryStatistics.
      */
     @Test
     public void testAccept() {
-        BigDecimal value0 = BigDecimal.ZERO;
-        BigDecimal value1 = BigDecimal.ONE;
-        BigDecimal value10 = BigDecimal.TEN;
-        BigDecimalSummaryStatistics instance = new BigDecimalSummaryStatistics();
+        final BigDecimal value0 = BigDecimal.ZERO;
+        final BigDecimal value1 = BigDecimal.ONE;
+        final BigDecimal value10 = BigDecimal.TEN;
+        final BigDecimalSummaryStatistics instance = new BigDecimalSummaryStatistics();
         instance.accept(value0);
         instance.accept(value1);
         instance.accept(value1);
@@ -54,11 +53,11 @@ public class BigDecimalSummaryStatisticsTest {
      */
     @Test
     public void testAccept_andThen() {
-        BigDecimal value0 = BigDecimal.ZERO;
-        BigDecimal value1 = BigDecimal.ONE;
-        BigDecimal value10 = BigDecimal.TEN;
-        BigDecimalSummaryStatistics instance = new BigDecimalSummaryStatistics();
-        BigDecimalSummaryStatistics instanceOther = new BigDecimalSummaryStatistics();
+        final BigDecimal value0 = BigDecimal.ZERO;
+        final BigDecimal value1 = BigDecimal.ONE;
+        final BigDecimal value10 = BigDecimal.TEN;
+        final BigDecimalSummaryStatistics instance = new BigDecimalSummaryStatistics();
+        final BigDecimalSummaryStatistics instanceOther = new BigDecimalSummaryStatistics();
         instance.andThen(instanceOther).accept(value0);
         instance.andThen(instanceOther).accept(value1);
         instance.andThen(instanceOther).accept(value1);
@@ -82,10 +81,10 @@ public class BigDecimalSummaryStatisticsTest {
      */
     @Test
     public void testToString() {
-        BigDecimal value0 = BigDecimal.ZERO;
-        BigDecimal value1 = BigDecimal.ONE;
-        BigDecimal value10 = BigDecimal.TEN;
-        BigDecimalSummaryStatistics instance = new BigDecimalSummaryStatistics();
+        final BigDecimal value0 = BigDecimal.ZERO;
+        final BigDecimal value1 = BigDecimal.ONE;
+        final BigDecimal value10 = BigDecimal.TEN;
+        final BigDecimalSummaryStatistics instance = new BigDecimalSummaryStatistics();
         instance.accept(value0);
         instance.accept(value1);
         instance.accept(value1);
@@ -96,12 +95,12 @@ public class BigDecimalSummaryStatisticsTest {
 
     @Test
     public void testForEachAccept() {
-        BigDecimal value0 = BigDecimal.ZERO;
-        BigDecimal value1 = BigDecimal.ONE;
-        BigDecimal value10 = BigDecimal.TEN;
-        List<BigDecimal> bigDecimalList = Arrays.asList(value0, value1, value1, value10);
+        final BigDecimal value0 = BigDecimal.ZERO;
+        final BigDecimal value1 = BigDecimal.ONE;
+        final BigDecimal value10 = BigDecimal.TEN;
+        final List<BigDecimal> bigDecimalList = Arrays.asList(value0, value1, value1, value10);
 
-        BigDecimalSummaryStatistics instance = new BigDecimalSummaryStatistics();
+        final BigDecimalSummaryStatistics instance = new BigDecimalSummaryStatistics();
 
         bigDecimalList.stream().forEach((bd) -> instance.accept(bd));
         String result = instance.toString();
@@ -110,13 +109,13 @@ public class BigDecimalSummaryStatisticsTest {
 
     @Test
     public void testForEachAccept_neg_and_plus() {
-        List<BigDecimal> bigDecimalList = new ArrayList<>();
+        final List<BigDecimal> bigDecimalList = new ArrayList<>();
         for (int i = 0; i <= 99; i++) {
             bigDecimalList.add(BigDecimal.valueOf(i));
             bigDecimalList.add(BigDecimal.valueOf(-i));
         }
 
-        BigDecimalSummaryStatistics instance = new BigDecimalSummaryStatistics();
+        final BigDecimalSummaryStatistics instance = new BigDecimalSummaryStatistics();
 
         bigDecimalList.stream().forEach((bd) -> instance.accept(bd));
         assertEquals(BigDecimal.ZERO, instance.getAverage());

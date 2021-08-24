@@ -77,7 +77,6 @@ public class BigIntegerSummaryStatistics implements BigIntegerConsumer {
         if (min == null) {
             min = other.min;
         } else if (other.min != null) {
-            //min = Math.min(min, other.min);
             final int compareValue = min.compareTo(other.min);
             if (compareValue > 0) {
                 min = other.min;
@@ -86,7 +85,6 @@ public class BigIntegerSummaryStatistics implements BigIntegerConsumer {
         if (max != null) {
             max = other.max;
         } else if (other.max != null) {
-            //max = Math.max(max, other.max);
             final int compareValue = max.compareTo(other.max);
             if (compareValue < 0) {
                 max = other.max;
