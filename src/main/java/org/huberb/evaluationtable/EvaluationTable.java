@@ -44,6 +44,14 @@ public class EvaluationTable {
             this.m = new HashMap<>();
         }
 
+        public Evaluations(Map<Enum, Value> m) {
+            this.m = m;
+        }
+
+        Map<Enum, Value> get() {
+            return this.m;
+        }
+
         /**
          * Put a value into the map.
          * <p>
