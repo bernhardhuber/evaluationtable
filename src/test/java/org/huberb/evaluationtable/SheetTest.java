@@ -153,27 +153,32 @@ public class SheetTest {
         assertEquals(13, l1.get(7).n().get());
     }
 
-    @ParameterizedTest
-    @MethodSource("xxx")
-    public void testValueStringOrNumberConditional(BigDecimal inputValue, int expectedResultIndex, BigDecimal expectedResultValue) {
-        final List<ValueStringOrNumber> l0 = new ArrayList<>(
+    static class SheetConditional1Definition {
+
+        final BigDecimal inputValue;
+
+        public SheetConditional1Definition(BigDecimal inputValue) {
+            this.inputValue = inputValue;
+        }
+
+        private final List<ValueStringOrNumber> l0 = new ArrayList<>(
                 Arrays.asList(
+                        /* G1 0 */
                         new ValueStringOrNumber(0),
                         new ValueStringOrNumber(10),
                         new ValueStringOrNumber(BigDecimal.valueOf(5.5)),
-                        //
+                        /* G2 3 */
                         new ValueStringOrNumber(11),
                         new ValueStringOrNumber(50),
                         new ValueStringOrNumber(BigDecimal.valueOf(10.0)),
-                        //
+                        /* G3 6 */
                         new ValueStringOrNumber(51),
                         new ValueStringOrNumber(Integer.MAX_VALUE),
                         new ValueStringOrNumber(BigDecimal.valueOf(20.0))
                 )
         );
-        final Sheet<ValueStringOrNumber> s0 = new Sheet<>(l0);
 
-        final Function<BigDecimal[], Optional<BigDecimal>> fRule = (BigDecimal[] bds) -> {
+        private final Function<BigDecimal[], Optional<BigDecimal>> fRule = (BigDecimal[] bds) -> {
             final BigDecimal ctx = bds[0];
             final BigDecimal g1Min = bds[1];
             final BigDecimal g1Max = bds[2];
@@ -188,66 +193,73 @@ public class SheetTest {
             return ret;
         };
 
-        final ValueStringOrNumber valueStringOrNumberCtx = new ValueStringOrNumber(inputValue);
-        final Function<List<ValueStringOrNumber>, List<ValueStringOrNumber>> f = (final List<ValueStringOrNumber> l) -> {
-            final BigDecimal ctx = BigDecimal.valueOf(valueStringOrNumberCtx.n(-1).doubleValue());
-            final List<ValueStringOrNumber> ret = new ArrayList<>();
-            // G1
-            {
-                final int g1Min = l.get(0).n().get().intValue();
-                final int g1Max = l.get(1).n().get().intValue();
-                final BigDecimal g1Percentage = BigDecimal.valueOf(l.get(2).n().get().doubleValue());
+        Function<List<ValueStringOrNumber>, List<ValueStringOrNumber>> supplySheetFunction() {
+            final Function<List<ValueStringOrNumber>, List<ValueStringOrNumber>> f = (final List<ValueStringOrNumber> l) -> {
+                final ValueStringOrNumber valueStringOrNumberCtx = new ValueStringOrNumber(inputValue);
+                final BigDecimal ctx = BigDecimal.valueOf(valueStringOrNumberCtx.n(-1).doubleValue());
+                final List<ValueStringOrNumber> ret = new ArrayList<>();
+                // G1
+                {
+                    final int g1Min = l.get(0).n().get().intValue();
+                    final int g1Max = l.get(1).n().get().intValue();
+                    final BigDecimal g1Percentage = BigDecimal.valueOf(l.get(2).n().get().doubleValue());
 
-                final BigDecimal[] bds = new BigDecimal[]{ctx, BigDecimal.valueOf(g1Min), BigDecimal.valueOf(g1Max), g1Percentage};
-                final Optional<BigDecimal> g1Ret = fRule.apply(bds);
-                ret.add(new ValueStringOrNumber(g1Ret.orElse(BigDecimal.ONE.negate())));
-            }
-            // G2
-            {
-                final int g2Min = l.get(3).n().get().intValue();
-                final int g2Max = l.get(4).n().get().intValue();
-                final BigDecimal g2Percentage = BigDecimal.valueOf(l.get(5).n().get().doubleValue());
+                    final BigDecimal[] bds = new BigDecimal[]{ctx, BigDecimal.valueOf(g1Min), BigDecimal.valueOf(g1Max), g1Percentage};
+                    final Optional<BigDecimal> g1Ret = fRule.apply(bds);
+                    ret.add(new ValueStringOrNumber(g1Ret.orElse(BigDecimal.ONE.negate())));
+                }
+                // G2
+                {
+                    final int g2Min = l.get(3).n().get().intValue();
+                    final int g2Max = l.get(4).n().get().intValue();
+                    final BigDecimal g2Percentage = BigDecimal.valueOf(l.get(5).n().get().doubleValue());
 
-                final BigDecimal[] bds = new BigDecimal[]{ctx, BigDecimal.valueOf(g2Min), BigDecimal.valueOf(g2Max), g2Percentage};
-                final Optional<BigDecimal> g2Ret = fRule.apply(bds);
-                ret.add(new ValueStringOrNumber(g2Ret.orElse(BigDecimal.ONE.negate())));
-            }
-            // G3
-            {
-                final int g3Min = l.get(6).n().get().intValue();
-                final int g3Max = l.get(7).n().get().intValue();
-                final BigDecimal g3Percentage = BigDecimal.valueOf(l.get(8).n().get().doubleValue());
-                final BigDecimal[] bds = new BigDecimal[]{ctx, BigDecimal.valueOf(g3Min), BigDecimal.valueOf(g3Max), g3Percentage};
-                final Optional<BigDecimal> g3Ret = fRule.apply(bds);
-                ret.add(new ValueStringOrNumber(g3Ret.orElse(BigDecimal.ONE.negate())));
-            }
-            return ret;
-        };
+                    final BigDecimal[] bds = new BigDecimal[]{ctx, BigDecimal.valueOf(g2Min), BigDecimal.valueOf(g2Max), g2Percentage};
+                    final Optional<BigDecimal> g2Ret = fRule.apply(bds);
+                    ret.add(new ValueStringOrNumber(g2Ret.orElse(BigDecimal.ONE.negate())));
+                }
+                // G3
+                {
+                    final int g3Min = l.get(6).n().get().intValue();
+                    final int g3Max = l.get(7).n().get().intValue();
+                    final BigDecimal g3Percentage = BigDecimal.valueOf(l.get(8).n().get().doubleValue());
+                    final BigDecimal[] bds = new BigDecimal[]{ctx, BigDecimal.valueOf(g3Min), BigDecimal.valueOf(g3Max), g3Percentage};
+                    final Optional<BigDecimal> g3Ret = fRule.apply(bds);
+                    ret.add(new ValueStringOrNumber(g3Ret.orElse(BigDecimal.ONE.negate())));
+                }
+                return ret;
+            };
+            return f;
+        }
+    }
+
+    @ParameterizedTest
+    @MethodSource("createInputValueResultIndexResultValue")
+    public void testValueStringOrNumberConditional(BigDecimal inputValue, int expectedResultIndex, BigDecimal expectedResultValue) {
+        final SheetConditional1Definition sheetConditional1Definition = new SheetConditional1Definition(inputValue);
+        final Sheet<ValueStringOrNumber> s0 = new Sheet<>(sheetConditional1Definition.l0);
+        final Function<List<ValueStringOrNumber>, List<ValueStringOrNumber>> f = sheetConditional1Definition.supplySheetFunction();
         s0.flatMap(f);
-//        assertEquals("Sheet{l=["
-//                // G1 0
-//                + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[0]}, "
-//                + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[10]}, "
-//                + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[5.5]}, "
-//                // G2 3
-//                + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[11]}, "
-//                + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[50]}, "
-//                + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[10.0]}, "
-//                // G3 6
-//                + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[51]}, "
-//                + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[2147483647]}, "
-//                + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[20.0]}, "
-//                // G1 result 9
-//                + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[-1]}, "
-//                // G2 result 10
-//                + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[20.700]}, "
-//                // G3 result 11
-//                + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[-1]}]}", s0.toString());
+        //assertEquals("Sheet{l=["
+        //        // G1 0
+        //        + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[0]}, "
+        //        + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[10]}, "
+        //        + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[5.5]}, "
+        //        // G2 3
+        //        + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[11]}, "
+        //        + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[50]}, "
+        //        + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[10.0]}, "
+        //        // G3 6
+        //        + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[51]}, "
+        //        + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[2147483647]}, "
+        //        + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[20.0]}, "
+        //        // G1 result 9
+        //        + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[-1]}, "
+        //        // G2 result 10
+        //        + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[20.700]}, "
+        //        // G3 result 11
+        //        + "ValueStringOrNumber{sOpt=Optional.empty, nOpt=Optional[-1]}]}", s0.toString());
         final List<ValueStringOrNumber> l1 = s0.l();
-//        assertEquals(BigDecimal.valueOf(-1), l1.get(9).n().get());
-//        assertEquals(20.7, l1.get(10).n().get().doubleValue(), 0.0001);
-//        assertEquals(BigDecimal.valueOf(-1), l1.get(11).n().get());
-
         if (expectedResultIndex == 9) {
             assertEquals(BigDecimal.valueOf(-1), l1.get(10).n().get());
             assertEquals(BigDecimal.valueOf(-1), l1.get(11).n().get());
@@ -262,7 +274,7 @@ public class SheetTest {
 
     }
 
-    public static Stream<Object[]> xxx() {
+    public static Stream<Object[]> createInputValueResultIndexResultValue() {
         List<Object[]> l = new ArrayList<>();
         l.add(new Object[]{BigDecimal.valueOf(10.0), 9, BigDecimal.valueOf(9.45)});
         l.add(new Object[]{BigDecimal.valueOf(23.0), 10, BigDecimal.valueOf(20.7)});
