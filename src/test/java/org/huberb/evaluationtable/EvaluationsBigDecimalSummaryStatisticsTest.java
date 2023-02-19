@@ -47,7 +47,7 @@ public class EvaluationsBigDecimalSummaryStatisticsTest {
         evaluations.putIfAbsentValue(Names.InputPrices1, bigDecimalVectorInputPrices1);
         final BigDecimalSummaryStatistics bigDecimalSummaryStatisticsProces1
                 = new VectorsSummaryStatistics()
-                        .createBigDecimalSummaryStatistics(evaluations.get(Names.InputPrices1));
+                        .createBigDecimalSummaryStatistics(evaluations.getValue(Names.InputPrices1));
         assertEquals(3L, bigDecimalSummaryStatisticsProces1.getCount());
         assertEquals(BigDecimal.valueOf(10L), bigDecimalSummaryStatisticsProces1.getMin());
         assertEquals(BigDecimal.valueOf(30L), bigDecimalSummaryStatisticsProces1.getMax());
@@ -67,7 +67,7 @@ public class EvaluationsBigDecimalSummaryStatisticsTest {
         evaluations.putIfAbsentValue(Names.InputPrices2, bigDecimalVectorInputPrices2);
         final BigDecimalSummaryStatistics bigDecimalSummaryStatisticsProces2
                 = new VectorsSummaryStatistics()
-                        .createBigDecimalSummaryStatistics(evaluations.get(Names.InputPrices2));
+                        .createBigDecimalSummaryStatistics(evaluations.getValue(Names.InputPrices2));
         assertEquals(3L, bigDecimalSummaryStatisticsProces2.getCount());
         assertEquals(BigDecimal.valueOf(11L), bigDecimalSummaryStatisticsProces2.getMin());
         assertEquals(BigDecimal.valueOf(33L), bigDecimalSummaryStatisticsProces2.getMax());

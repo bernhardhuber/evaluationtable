@@ -20,6 +20,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
@@ -62,8 +63,10 @@ public class BigIntegerSummaryStatisticsTest {
         instance.accept(value1);
         instance.accept(value1);
         instance.accept(value10);
-        String result = instance.toString();
-        assertEquals("BigIntegerSummaryStatistics{count=4, sum=12, min=0, average=3.000000, max=10}", result);
+        String resultLocaleEnglish = instance.formatToString(Locale.ENGLISH);
+        assertEquals("BigIntegerSummaryStatistics{count=4, sum=12, min=0, average=3.000000, max=10}", resultLocaleEnglish);
+        String resultLocaleGerman = instance.formatToString(Locale.GERMAN);
+        assertEquals("BigIntegerSummaryStatistics{count=4, sum=12, min=0, average=3,000000, max=10}", resultLocaleGerman);
     }
 
     @Test
@@ -76,8 +79,10 @@ public class BigIntegerSummaryStatisticsTest {
         BigIntegerSummaryStatistics instance = new BigIntegerSummaryStatistics();
 
         bigDecimalList.stream().forEach((bd) -> instance.accept(bd));
-        String result = instance.toString();
-        assertEquals("BigIntegerSummaryStatistics{count=4, sum=12, min=0, average=3.000000, max=10}", result);
+        String resultLocaleEnglish = instance.formatToString(Locale.ENGLISH);
+        assertEquals("BigIntegerSummaryStatistics{count=4, sum=12, min=0, average=3.000000, max=10}", resultLocaleEnglish);
+        String resultLocaleGerman = instance.formatToString(Locale.GERMAN);
+        assertEquals("BigIntegerSummaryStatistics{count=4, sum=12, min=0, average=3,000000, max=10}", resultLocaleGerman);
     }
 
     @Test

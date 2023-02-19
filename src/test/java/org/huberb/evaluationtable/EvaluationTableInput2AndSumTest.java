@@ -64,20 +64,20 @@ public class EvaluationTableInput2AndSumTest {
         ev.putIfAbsentValue(Input2AndSum.input2, new BigDecimalVector(l2));
         ev.evaluateTo(Input2AndSum.input2, Input2AndSum.input2Sum, sumFunc);
 
-        assertEquals(BigDecimal.valueOf(15L), ev.get(Input2AndSum.input1Sum).scalar0());
-        assertEquals(BigDecimal.valueOf(-15L), ev.get(Input2AndSum.input2Sum).scalar0());
+        assertEquals(BigDecimal.valueOf(15L), ev.getValue(Input2AndSum.input1Sum).scalar0());
+        assertEquals(BigDecimal.valueOf(-15L), ev.getValue(Input2AndSum.input2Sum).scalar0());
         // variant 1
-        assertEquals(BigDecimal.ZERO, ev.get(Input2AndSum.input1Sum).scalar0().add(ev.get(Input2AndSum.input2Sum).scalar0()));
+        assertEquals(BigDecimal.ZERO, ev.getValue(Input2AndSum.input1Sum).scalar0().add(ev.getValue(Input2AndSum.input2Sum).scalar0()));
 
         // variant 2
         ev.putValue(Input2AndSum.input1SumInput2Sum,
                 new BigDecimalVector(Arrays.asList(
-                        ev.get(Input2AndSum.input1Sum).scalar0(),
-                        ev.get(Input2AndSum.input2Sum).scalar0())
+                        ev.getValue(Input2AndSum.input1Sum).scalar0(),
+                        ev.getValue(Input2AndSum.input2Sum).scalar0())
                 )
         );
         ev.evaluateTo(Input2AndSum.input1SumInput2Sum, Input2AndSum.result, sumFunc);
-        assertEquals(BigDecimal.ZERO, ev.get(Input2AndSum.result).scalar0());
+        assertEquals(BigDecimal.ZERO, ev.getValue(Input2AndSum.result).scalar0());
 
     }
 }

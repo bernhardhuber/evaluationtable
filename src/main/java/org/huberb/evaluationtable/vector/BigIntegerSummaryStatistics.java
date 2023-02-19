@@ -17,6 +17,7 @@ package org.huberb.evaluationtable.vector;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -155,7 +156,11 @@ public class BigIntegerSummaryStatistics implements BigIntegerConsumer {
      * between implementations and versions.
      */
     public String toString() {
-        return String.format(
+        return formatToString(Locale.getDefault());
+    }
+
+    public String formatToString(Locale l) {
+        return String.format(l,
                 "%s{count=%d, sum=%d, min=%d, average=%f, max=%d}",
                 this.getClass().getSimpleName(),
                 getCount(),

@@ -16,6 +16,7 @@
 package org.huberb.evaluationtable.vector;
 
 import java.math.BigDecimal;
+import java.util.Locale;
 import java.util.Optional;
 
 /**
@@ -150,7 +151,11 @@ public class BigDecimalSummaryStatistics implements BigDecimalConsumer {
      * between implementations and versions.
      */
     public String toString() {
-        return String.format(
+        return formatToString(Locale.getDefault());
+    }
+
+    public String formatToString(Locale l) {
+        return String.format(l,
                 "%s{count=%d, sum=%f, min=%f, average=%f, max=%f}",
                 this.getClass().getSimpleName(),
                 getCount(),
@@ -158,5 +163,6 @@ public class BigDecimalSummaryStatistics implements BigDecimalConsumer {
                 getMin(),
                 getAverage(),
                 getMax());
+
     }
 }

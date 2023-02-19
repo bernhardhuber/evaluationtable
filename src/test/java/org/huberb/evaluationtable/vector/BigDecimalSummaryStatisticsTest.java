@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Locale;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.Test;
 
@@ -89,8 +90,8 @@ public class BigDecimalSummaryStatisticsTest {
         instance.accept(value1);
         instance.accept(value1);
         instance.accept(value10);
-        String result = instance.toString();
-        assertEquals("BigDecimalSummaryStatistics{count=4, sum=12.000000, min=0.000000, average=3.000000, max=10.000000}", result);
+        String result = instance.formatToString(Locale.GERMAN);
+        assertEquals("BigDecimalSummaryStatistics{count=4, sum=12,000000, min=0,000000, average=3,000000, max=10,000000}", result);
     }
 
     @Test

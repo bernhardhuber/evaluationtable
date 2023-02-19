@@ -43,9 +43,9 @@ public class EvaluationsDoubleTest {
         final double a1Mul2 = instance.evaluate(EvaluationsEnum.A1_INPUT, (d) -> 2 * d);
         final double a1plu1_Mul2 = instance.evaluateTo(EvaluationsEnum.A1_INPUT, EvaluationsEnum.A2OUTPUT_A1_PLUS1_MUL2, (d) -> (d + 1) * 2);
 
-        assertEquals(1.0d, instance.get(EvaluationsEnum.A1_INPUT), DELTA);
+        assertEquals(1.0d, instance.getValue(EvaluationsEnum.A1_INPUT), DELTA);
         assertEquals(2.0d, a1Mul2, DELTA);
-        assertEquals(4.0d, instance.get(EvaluationsEnum.A2OUTPUT_A1_PLUS1_MUL2), DELTA);
+        assertEquals(4.0d, instance.getValue(EvaluationsEnum.A2OUTPUT_A1_PLUS1_MUL2), DELTA);
         assertEquals(4.0d, a1plu1_Mul2, DELTA);
 
         final String m = instance.toString();
@@ -58,13 +58,13 @@ public class EvaluationsDoubleTest {
         final EvaluationsDouble instance = new EvaluationsDouble();
         instance.putIfAbsentValue(EvaluationsEnum.B1_INPUT, 1.0d);
         instance.putIfAbsentValue(EvaluationsEnum.B2_INPUT, 2.0d);
-        final double b3SumB1B2 = instance.get(EvaluationsEnum.B1_INPUT) + instance.get(EvaluationsEnum.B2_INPUT);
+        final double b3SumB1B2 = instance.getValue(EvaluationsEnum.B1_INPUT) + instance.getValue(EvaluationsEnum.B2_INPUT);
         instance.putIfAbsentValue(EvaluationsEnum.B3_SUM_B1_B2, b3SumB1B2);
 
-        assertEquals(1.0d, instance.get(EvaluationsEnum.B1_INPUT), DELTA);
-        assertEquals(2.0d, instance.get(EvaluationsEnum.B2_INPUT), DELTA);
+        assertEquals(1.0d, instance.getValue(EvaluationsEnum.B1_INPUT), DELTA);
+        assertEquals(2.0d, instance.getValue(EvaluationsEnum.B2_INPUT), DELTA);
         assertEquals(3.0d, b3SumB1B2, DELTA);
-        assertEquals(3.0d, instance.get(EvaluationsEnum.B3_SUM_B1_B2), DELTA);
+        assertEquals(3.0d, instance.getValue(EvaluationsEnum.B3_SUM_B1_B2), DELTA);
 
         final String m = instance.toString();
         assertTrue(instance.toString().contains("B1_INPUT=1.0"), m);

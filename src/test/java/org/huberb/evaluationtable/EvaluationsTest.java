@@ -63,19 +63,19 @@ public class EvaluationsTest {
                 InputAndSumEnum.resultSumOfInputListOf,
                 sumFunc
         );
-        assertEquals(BigDecimal.valueOf(15L), ev.get(InputAndSumEnum.resultSumOfInputListOf).scalar0());
+        assertEquals(BigDecimal.valueOf(15L), ev.getValue(InputAndSumEnum.resultSumOfInputListOf).scalar0());
         //--- min
         ev.evaluateTo(InputAndSumEnum.inputListOf,
                 InputAndSumEnum.resultMinOfInputListOf,
                 minFunc
         );
-        assertEquals(BigDecimal.valueOf(1L), ev.get(InputAndSumEnum.resultMinOfInputListOf).scalar0());
+        assertEquals(BigDecimal.valueOf(1L), ev.getValue(InputAndSumEnum.resultMinOfInputListOf).scalar0());
         //--- max
         ev.evaluateTo(InputAndSumEnum.inputListOf,
                 InputAndSumEnum.resultMaxOfInputListOf,
                 maxFunc
         );
-        assertEquals(BigDecimal.valueOf(5L), ev.get(InputAndSumEnum.resultMaxOfInputListOf).scalar0());
+        assertEquals(BigDecimal.valueOf(5L), ev.getValue(InputAndSumEnum.resultMaxOfInputListOf).scalar0());
     }
 
 }

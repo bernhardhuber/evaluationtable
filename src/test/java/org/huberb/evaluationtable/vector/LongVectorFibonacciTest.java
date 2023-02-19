@@ -28,8 +28,7 @@ public class LongVectorFibonacciTest {
 
     @Test
     public void testFibonacci_1_10() {
-        final List l = Arrays.asList(0L, 1L
-        );
+        final List l = Arrays.asList(0L, 1L        );
         final LongVector instance = new LongVector(l);
 
         for (int i = 1; i <= 10; i++) {

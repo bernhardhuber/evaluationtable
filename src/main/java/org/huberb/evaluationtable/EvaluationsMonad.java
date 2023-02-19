@@ -35,7 +35,7 @@ public class EvaluationsMonad {
             this.l = new ArrayList<>(l);
         }
 
-        Sheet< V> flatMap(Function<List<V>, List<V>> f) {
+        Sheet<V> flatMap(Function<List<V>, List<V>> f) {
             final List<V> lNew = f.apply(this.l);
             this.l.addAll(lNew);
             return this;

@@ -48,7 +48,7 @@ public class EvaluationTable {
             this.m = m;
         }
 
-        Map<Enum, Value> get() {
+        Map<Enum, Value> getMap() {
             return this.m;
         }
 
@@ -82,7 +82,7 @@ public class EvaluationTable {
          * @param key
          * @return
          */
-        Value get(Enum key) {
+        Value getValue(Enum key) {
             return m.get(key);
         }
 
